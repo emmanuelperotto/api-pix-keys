@@ -25,6 +25,7 @@ func main() {
 	//SETUP ROUTES
 	router := mux.NewRouter()
 	router.Use(middlewares.Logging)
+	router.Use(middlewares.AuthorizeRequest)
 
 	router.HandleFunc("/pix_keys", routes.CreatePixKey).Methods("POST")
 
