@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"pixkeys/entities"
+	"pixkeys/infra/middlewares"
 	"pixkeys/usecases"
 )
 
@@ -16,6 +17,7 @@ func CreatePixKey(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	pixKey.AccountID = middlewares.CurrentAccountID
 	pixKey, err := usecases.CreatePixKey(pixKey)
 	if err != nil {
 		w.WriteHeader(http.StatusUnprocessableEntity)

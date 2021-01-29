@@ -6,13 +6,13 @@ import (
 	"pixkeys/infra"
 )
 
-type pixKeyRepo struct{}
+type keyType struct{}
 
 type PixKeyCreator interface {
 	Create(entities.PixKey) (entities.PixKey, error)
 }
 
-func (ar pixKeyRepo) Create(pixKey entities.PixKey) (entities.PixKey, error) {
+func (k keyType) Create(pixKey entities.PixKey) (entities.PixKey, error) {
 	ctx := context.Background()
 	result, err := infra.DB.ExecContext(ctx,
 		"INSERT INTO api_pix_keys.PixKeys (Value, AccountID, KeyTypeID) VALUES (?, ?, ?)",
@@ -31,5 +31,5 @@ func (ar pixKeyRepo) Create(pixKey entities.PixKey) (entities.PixKey, error) {
 }
 
 var (
-	PixKeyRepo = pixKeyRepo{}
+	PixKeyRepo = keyType{}
 )
